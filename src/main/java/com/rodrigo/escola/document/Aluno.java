@@ -1,14 +1,19 @@
 package com.rodrigo.escola.document;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Document
 public class Aluno {
 
-    private ObjectId id;
+    @Id
+    private String id;
 
     private String nome;
 
@@ -21,11 +26,11 @@ public class Aluno {
 
     private List<Habilidade> habilidades;
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -67,5 +72,15 @@ public class Aluno {
 
     public void setHabilidades(List<Habilidade> habilidades) {
         this.habilidades = habilidades;
+    }
+
+    public Aluno adicionaHabilidade(Aluno aluno, Habilidade habilidade) {
+        List<Habilidade> habilidades = new ArrayList<>();
+        if(aluno.getHabilidades() != null) {
+            habilidades = aluno.getHabilidades();
+        }
+        habilidades.add(habilidade);
+        aluno.setHabilidades(habilidades);
+        return aluno;
     }
 }

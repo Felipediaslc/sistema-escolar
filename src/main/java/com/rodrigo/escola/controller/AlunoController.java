@@ -1,6 +1,8 @@
 package com.rodrigo.escola.controller;
 
 import com.rodrigo.escola.document.Aluno;
+import com.rodrigo.escola.repository.AlunoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/aluno")
 public class AlunoController {
 
+    @Autowired
+    private AlunoRepository alunoRepository;
+
     @GetMapping("/cadastrar")
     public String cadastrar(Model model) {
         model.addAttribute("aluno", new Aluno());
@@ -20,7 +25,14 @@ public class AlunoController {
 
     @PostMapping("/salvar")
     public String salvar(@ModelAttribute Aluno aluno) {
-        System.out.println("Aluno: "+ aluno);
+        alunoRepository.save(aluno);
         return "redirect:/";
     }
+
+    @GetMapping("/listar")
+    public String listar(Model model) {
+        model.addAttribute("alunos", alunoRepository.findAll());
+        return "aluno/listar";
+    }
+
 }
