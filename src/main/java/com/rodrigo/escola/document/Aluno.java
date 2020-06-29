@@ -83,4 +83,14 @@ public class Aluno {
         aluno.setHabilidades(habilidades);
         return aluno;
     }
+
+    public Aluno adicionaNota(Aluno aluno, Nota nota) {
+        List<Nota> notas = new ArrayList<>();
+        if(aluno.getNotas() != null) {
+            notas = aluno.getNotas();
+        }
+        notas.add(nota);
+        aluno.setNotas(notas);
+        return aluno;
+    }
 }

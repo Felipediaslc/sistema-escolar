@@ -3,6 +3,7 @@ package com.rodrigo.escola.service;
 import com.rodrigo.escola.document.Aluno;
 import com.rodrigo.escola.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +19,15 @@ public class AlunoService {
     }
 
     public List<Aluno> listar() {
-        return alunoRepository.findAll();
+        return alunoRepository.findAll(Sort.by(Sort.Direction.ASC, "nome"));
     }
 
-    public Aluno listarPorId(String id) {
+    public Aluno buscarPorId(String id) {
         return alunoRepository.findById(id).get();
+    }
+
+    public List<Aluno> buscaPorNome(String nome) {
+        Sort sort = Sort.by(Sort.Direction.ASC, "nome");
+        return alunoRepository.findBynomeContainingIgnoreCase(nome, sort);
     }
 }
