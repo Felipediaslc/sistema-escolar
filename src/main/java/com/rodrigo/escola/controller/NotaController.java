@@ -17,16 +17,27 @@ public class NotaController {
 
     @GetMapping("/cadastrar/{id}")
     public String cadastrar(@PathVariable("id") String id, Model model) {
-        model.addAttribute("aluno", alunoService.listarPorId(id));
+        model.addAttribute("aluno", alunoService.buscarPorId(id));
         model.addAttribute("nota", new Nota());
         return "nota/cadastrar";
     }
 
     @PostMapping("/salvar/{id}")
     public String salvar(@PathVariable("id") String id, @ModelAttribute Nota nota) {
-        Aluno aluno = alunoService.listarPorId(id);
+        Aluno aluno = alunoService.buscarPorId(id);
         aluno.adicionaNota(aluno, nota);
         alunoService.salvar(aluno);
         return "redirect:/aluno/listar";
+    }
+
+    @GetMapping("/iniciarpesquisa")
+    public String pesquisaNota() {
+        return "nota/pesquisar";
+    }
+
+    @GetMapping("/pesuisar")
+        public String pesquisarPor(@RequestParam("classificao")String classificao,
+                                   @RequestParam("notacorte")String notaCorte, Model model) {
+        return "nota/pesquisar";
     }
 }

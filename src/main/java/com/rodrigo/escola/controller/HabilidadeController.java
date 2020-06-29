@@ -18,14 +18,14 @@ public class HabilidadeController {
 
     @GetMapping("/cadastrar/{id}")
     public String cadastrar(@PathVariable("id") String id, Model model) {
-        model.addAttribute("aluno", alunoService.listarPorId(id));
+        model.addAttribute("aluno", alunoService.buscarPorId(id));
         model.addAttribute("habilidade", new Habilidade());
         return "habilidade/cadastrar";
     }
 
     @PostMapping("/salvar/{id}")
     public String salvar(@PathVariable String id, @ModelAttribute Habilidade habilidade) {
-        Aluno aluno = alunoService.listarPorId(id);
+        Aluno aluno = alunoService.buscarPorId(id);
         aluno.adicionaHabilidade(aluno, habilidade);
         alunoService.salvar(aluno);
         return "redirect:/aluno/listar";
