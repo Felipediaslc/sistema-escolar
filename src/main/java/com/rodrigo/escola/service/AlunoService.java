@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,6 +29,16 @@ public class AlunoService {
 
     public List<Aluno> buscaPorNome(String nome) {
         Sort sort = Sort.by(Sort.Direction.ASC, "nome");
-        return alunoRepository.findBynomeContainingIgnoreCase(nome, sort);
+        return alunoRepository.findByNomeContainingIgnoreCase(nome, sort);
+    }
+
+    public List<Aluno> pesquisarPor(String classificacao, double nota) {
+        List<Aluno> alunos = new ArrayList<>();
+        if (classificacao.equals("reprovados")) {
+            alunos = alunoRepository.findByNotasValorLessThan(nota);
+        } else if (classificacao.equals("aprovados")) {
+            alunos = alunoRepository.findByNotasValorGreaterThanEqual(nota);
+        }
+        return alunos;
     }
 }

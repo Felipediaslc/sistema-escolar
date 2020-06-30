@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/nota")
 public class NotaController {
@@ -35,9 +37,11 @@ public class NotaController {
         return "nota/pesquisar";
     }
 
-    @GetMapping("/pesuisar")
-        public String pesquisarPor(@RequestParam("classificao")String classificao,
+    @GetMapping("/pesquisar")
+        public String pesquisarPor(@RequestParam("classificacao")String classificacao,
                                    @RequestParam("notacorte")String notaCorte, Model model) {
+        List<Aluno> alunos = alunoService.pesquisarPor(classificacao, Double.parseDouble(notaCorte));
+        model.addAttribute("alunos", alunos);
         return "nota/pesquisar";
     }
 }

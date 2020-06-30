@@ -10,5 +10,7 @@ import java.util.List;
 @Repository
 public interface AlunoRepository extends MongoRepository<Aluno, String> {
 
-    List<Aluno> findBynomeContainingIgnoreCase(String nome, Sort sort);
+    List<Aluno> findByNomeContainingIgnoreCase(String nome, Sort sort);
+    List<Aluno> findByNotasValorLessThan(Double nota);
+    List<Aluno> findByNotasValorGreaterThanEqual(Double nota);
 }

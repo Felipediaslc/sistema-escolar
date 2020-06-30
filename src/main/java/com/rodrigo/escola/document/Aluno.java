@@ -17,7 +17,7 @@ public class Aluno {
 
     private String nome;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataNascimento;
 
     private Curso curso;
