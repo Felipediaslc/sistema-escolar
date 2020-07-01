@@ -37,7 +37,8 @@ public class AlunoService {
         if (classificacao.equals("reprovados")) {
             alunos = alunoRepository.findByNotasValorLessThan(nota);
         } else if (classificacao.equals("aprovados")) {
-            alunos = alunoRepository.findByNotasValorGreaterThanEqual(nota);
+            //alunos = alunoRepository.findByNotasValorGreaterThanEqual(nota);
+            alunos = alunoRepository.buscaPorNotasComValorMaiorOuIgualQue(nota); //testando busca por Method Query
         }
         return alunos;
     }
